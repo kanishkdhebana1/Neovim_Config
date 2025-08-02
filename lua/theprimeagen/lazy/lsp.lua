@@ -77,11 +77,30 @@ return {
                 end,
             },
             mapping = cmp.mapping.preset.insert({
-                ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-                ["<C-Space>"] = cmp.mapping.complete(),
+            ['<C-p>'] = cmp.mapping.select_prev_item(),
+            ['<C-n>'] = cmp.mapping.select_next_item(),
+            ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+            ['<C-Space>'] = cmp.mapping.complete(),
+
+            -- Use Tab to select next item
+            ['<Tab>'] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                cmp.select_next_item()
+                else
+                fallback()
+                end
+            end, { "i", "s" }),
+
+            -- Use Shift-Tab to select previous item
+            ['<S-Tab>'] = cmp.mapping(function(fallback)
+                if cmp.visible() then
+                cmp.select_prev_item()
+                else
+                fallback()
+                end
+            end, { "i", "s" }),
             }),
+
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.

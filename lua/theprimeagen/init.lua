@@ -40,12 +40,6 @@ autocmd('TextYankPost', {
     end,
 })
 
-autocmd({"BufWritePre"}, {
-    group = ThePrimeagenGroup,
-    pattern = "*",
-    command = [[%s/\s\+$//e]],
-})
-
 autocmd('LspAttach', {
     group = ThePrimeagenGroup,
     callback = function(e)
